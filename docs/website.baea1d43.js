@@ -24503,7 +24503,7 @@ watch(reactiveData, callDataChange = function callDataChange() {
 
 
   if (cpiOutputElement) {
-    cpiOutputElement.value = Math.round(usdToCpi(reactiveData.income, reactiveData.date));
+    cpiOutputElement.value = usdToCpi(reactiveData.income, reactiveData.date).toFixed(3);
   } // 
   // create all the children
   // 
@@ -24687,7 +24687,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61794" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55789" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

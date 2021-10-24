@@ -52,7 +52,7 @@ watch(reactiveData, callDataChange = ()=>{
     
     // update the actual income whenever something changes
     if (cpiOutputElement) {
-        cpiOutputElement.value = Math.round(usdToCpi(reactiveData.income, reactiveData.date))
+        cpiOutputElement.value = usdToCpi(reactiveData.income, reactiveData.date).toFixed(3)
     }
     
     // 
