@@ -1,6 +1,7 @@
 {
 	"dependencies": {
 		"cors": "^2.8.5",
+		"css-baseline": "^1.2.11",
 		"express": "^4.17.1",
 		"good-jsx": "^1.4.1",
 		"quik-dom": "^1.0.6",
