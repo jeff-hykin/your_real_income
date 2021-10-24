@@ -1,6 +1,11 @@
 {
 	"dependencies": {
+		"cors": "^2.8.5",
+		"express": "^4.17.1",
+		"good-jsx": "^1.4.1",
+		"quik-dom": "^1.0.6",
 		"quik-server": "^2.1.1",
+		"storage-object": "^0.0.1",
 		"web-resource-inliner": "^5.0.0"
 	}
 }

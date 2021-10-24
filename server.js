@@ -1,4 +1,9 @@
-let app = require("quik-server")
+const app = require("quik-server")
+const cors = require('cors')
+const express = require("express")
+
+app.use(cors())
+app.quikAdd("quik-dom")
 
 app.settings = {
     // default settings (all are optional)

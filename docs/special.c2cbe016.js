@@ -876,11 +876,85 @@ try {
   Function("r", "regeneratorRuntime = r")(runtime);
 }
 
+},{}],"../node_modules/good-jsx/index.js":[function(require,module,exports) {
+require("good-dom").global()
+
+const exclusivelySvgElements = new Set(["svg", "animate", "animateMotion", "animateTransform", "circle", "clipPath", "defs", "desc", "discard", "ellipse", "feBlend", "feColorMatrix", "feComponentTransfer", "feComposite", "feConvolveMatrix", "feDiffuseLighting", "feDisplacementMap", "feDistantLight", "feDropShadow", "feFlood", "feFuncA", "feFuncB", "feFuncG", "feFuncR", "feGaussianBlur", "feImage", "feMerge", "feMergeNode", "feMorphology", "feOffset", "fePointLight", "feSpecularLighting", "feSpotLight", "feTile", "feTurbulence", "filter", "foreignObject", "g", "hatch", "hatchpath", "image", "line", "linearGradient", "marker", "mask", "mesh", "meshgradient", "meshpatch", "meshrow", "metadata", "mpath", "path", "pattern", "polygon", "polyline", "radialGradient", "rect", "set", "stop", "switch", "symbol", "text", "textPath", "tspan", "unknown", "use", "view",])
+// create a JSX middleware system if it doesnt exist
+if (!window.jsxChain) {
+    window.jsxChain = []
+}
+
+let isConstructor = (obj) => {
+    return !!obj.prototype && !!obj.prototype.constructor.name;
+}
+
+// add it to JSX
+window.React = {
+    createElement: (key, properties, ...children) => {
+        // run middleware
+        for (let eachMiddleWare of window.jsxChain) {
+            const element = eachMiddleWare(key, properties, ...children)
+            if (element) {
+                return element
+            }
+        }
+        if (key instanceof Function) {
+            const output = isConstructor(key) ? new key({...properties, children}) : key({...properties, children: children})
+            // allow async components
+            if (output instanceof Promise) {
+                const elementPromise = output
+                const placeholder = elementPromise.placeholder || document.createElement("div")
+                setTimeout(async () => {
+                    placeholder.replaceWith(await elementPromise)
+                }, 0)
+                return placeholder
+            } else {
+                return output
+            }
+        }
+        // create either an html element or an svg element
+        const element = exclusivelySvgElements.has(key) ? document.createElementNS('http://www.w3.org/2000/svg', key) : document.createElement(key)
+        if (properties instanceof Object) {
+            for (const [key, value] of Object.entries(properties)) {
+                try {
+                    element.setAttribute(key, value)
+                } catch (error) {
+                }
+                element[key] = value
+            }
+        }
+        return element.add(...children)
+    },
+}
 },{}],"special.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 var quik = require('quik-client');
 
 require('regenerator-runtime/runtime');
-},{"quik-client":"../../../node_modules/quik-client/index.js","regenerator-runtime/runtime":"../../../node_modules/regenerator-runtime/runtime.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+;
+
+_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+  return regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          require("good-jsx");
+
+        case 1:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}))();
+
+;
+},{"quik-client":"../../../node_modules/quik-client/index.js","regenerator-runtime/runtime":"../../../node_modules/regenerator-runtime/runtime.js","good-jsx":"../node_modules/good-jsx/index.js"}],"../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -908,7 +982,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59563" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49185" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -1084,5 +1158,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","special.js"], null)
+},{}]},{},["../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","special.js"], null)
 //# sourceMappingURL=/special.c2cbe016.js.map

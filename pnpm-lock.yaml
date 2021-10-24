@@ -1,11 +1,21 @@
 lockfileVersion: 5.3
 
 specifiers:
+  cors: ^2.8.5
+  express: ^4.17.1
+  good-jsx: ^1.4.1
+  quik-dom: ^1.0.6
   quik-server: ^2.1.1
+  storage-object: ^0.0.1
   web-resource-inliner: ^5.0.0
 
 dependencies:
+  cors: 2.8.5
+  express: 4.17.1
+  good-jsx: 1.4.1
+  quik-dom: 1.0.6
   quik-server: 2.1.1
+  storage-object: 0.0.1
   web-resource-inliner: 5.0.0
 
 packages:
@@ -1218,6 +1228,25 @@ packages:
     resolution: {integrity: sha512-L28j2FcJfSZOnL1WBjDYp2vUHCeIFlyYI/53EwD/rKUBQ7MtUUfbQWiyKJGpcnv4/WgrhWsFKrcPstcAt/J0tQ==}
     dev: false
 
+  /@vue-reactivity/watch/0.1.6_@vue+reactivity@3.2.20:
+    resolution: {integrity: sha512-Se4D+1LAnn8B49MuRzWyZv2syb+9FTuxXKA8FF6gjZD08PdVwoVZG3ncZzqFFG2lVlzx03+rjOCtIJb+VkD3Qg==}
+    peerDependencies:
+      '@vue/reactivity': '>=3.0.0-rc.1'
+      '@vue/shared': '>=3.0.0-rc.1'
+    dependencies:
+      '@vue/reactivity': 3.2.20
+    dev: false
+
+  /@vue/reactivity/3.2.20:
+    resolution: {integrity: sha512-nSmoLojUTk+H8HNTAkrUduB4+yIUBK2HPihJo2uXVSH4Spry6oqN6lFzE5zpLK+F27Sja+UqR9R1+/kIOsHV5w==}
+    dependencies:
+      '@vue/shared': 3.2.20
+    dev: false
+
+  /@vue/shared/3.2.20:
+    resolution: {integrity: sha512-FbpX+hD5BvXCQerEYO7jtAGHlhAkhTQ4KIV73kmLWNlawWhTiVuQxizgVb0BOkX5oG9cIRZ42EG++d/k/Efp0w==}
+    dev: false
+
   /abab/2.0.5:
     resolution: {integrity: sha512-9IK9EadsbHo6jLWIpxpR6pL0sazTXV6+SQv25ZB+F7Bj9mJNaOc4nCRabwd5M/JwmUa8idz6Eci6eKfJryPs6Q==}
     dev: false
@@ -1226,7 +1255,7 @@ packages:
     resolution: {integrity: sha512-Il80Qs2WjYlJIBNzNkK6KYqlVMTbZLXgHx2oT0pU/fjRHyEp+PEfEPY0R3WCwAGVOtauxh1hOxNgIf5bv7dQpA==}
     engines: {node: '>= 0.6'}
     dependencies:
-      mime-types: 2.1.32
+      mime-types: 2.1.33
       negotiator: 0.6.2
     dev: false
 
@@ -1957,6 +1986,14 @@ packages:
 
   /core-util-is/1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
+    dev: false
+
+  /cors/2.8.5:
+    resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
+    engines: {node: '>= 0.10'}
+    dependencies:
+      object-assign: 4.1.1
+      vary: 1.1.2
     dev: false
 
   /cosmiconfig/5.2.1:
@@ -2834,6 +2871,16 @@ packages:
     engines: {node: '>=4'}
     dev: false
 
+  /good-dom/4.2.1:
+    resolution: {integrity: sha512-Rd62XSTGuxIOPfiLp/h8JaLD/zrmHqsM/7nsTvtZjJa/E6dMgD/u9H/O5jzeb0xtGQ5TLdRcD+QG7UDMJ1TE4g==}
+    dev: false
+
+  /good-jsx/1.4.1:
+    resolution: {integrity: sha512-i7awL4l+7W2Cn5TG0/f+6DzUYe5ImRZkYwvwQElo8UgW1jq4/F0c202LnTBZ3DagbVfTIA9lItByHUwAPNQaVQ==}
+    dependencies:
+      good-dom: 4.2.1
+    dev: false
+
   /graceful-fs/4.2.8:
     resolution: {integrity: sha512-qkIilPUYcNhJpd33n0GBXTB1MMPp14TxEsEs0pTrsSVucApsYzW5V+Q8Qxhik6KU3evy+qkAAowTByymK0avdg==}
     dev: false
@@ -3633,11 +3680,23 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
+  /mime-db/1.50.0:
+    resolution: {integrity: sha512-9tMZCDlYHqeERXEHO9f/hKfNXhre5dK2eE/krIvUjZbS2KPcqGDfNShIWS1uW9XOTKQKqK6qbeOci18rbfW77A==}
+    engines: {node: '>= 0.6'}
+    dev: false
+
   /mime-types/2.1.32:
     resolution: {integrity: sha512-hJGaVS4G4c9TSMYh2n6SQAGrC4RnfU+daP8G7cSCmaqNjiOoUY0VHCMS42pxnQmVF1GWwFhbHWn3RIxCqTmZ9A==}
     engines: {node: '>= 0.6'}
     dependencies:
       mime-db: 1.49.0
+    dev: false
+
+  /mime-types/2.1.33:
+    resolution: {integrity: sha512-plLElXp7pRDd0bNZHw+nMd52vRYjLwQjygaNg7ddJ2uJtTlmnTCjWuPKxVu6//AdaRuME84SvLW91sIkBqGT0g==}
+    engines: {node: '>= 0.6'}
+    dependencies:
+      mime-db: 1.50.0
     dev: false
 
   /mime/1.6.0:
@@ -4555,6 +4614,12 @@ packages:
     resolution: {integrity: sha512-oC+Kqxs7qLiQcyjx1F+5D3o8aoghI6LhB926u00cV29YyFnMxGgYAMtmlzSP+1uzSqqIQMbdj62dB7QxGlFsBQ==}
     dev: false
 
+  /quik-dom/1.0.6:
+    resolution: {integrity: sha512-oAzqbG+1W2VRsPW9aG8q9bZ+4nLnzSnAhNE0fA1BTxKJkj9hPK3LTBmJfq6zAeyR4b2A6Xq4TZKHxeVU9c13lQ==}
+    dependencies:
+      good-jsx: 1.4.1
+    dev: false
+
   /quik-server/2.1.1:
     resolution: {integrity: sha512-GqpjjiMS3Mtrb95vY58IRv2ryJug143xGGJh24pcHYPzJH+fh+PqYEP3jIm4Tj8u/2tEHMXahW/zjrOYEBhzsQ==}
     dependencies:
@@ -5093,6 +5158,15 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
+  /storage-object/0.0.1:
+    resolution: {integrity: sha512-Z7I61VOt1RhlASxGl6k7qOkqBpr91hWUsCWy/vrOWjLdMRxpFwe6GICqNArbATAXTAChw336LnQyiPn5Ljka9g==}
+    dependencies:
+      '@vue-reactivity/watch': 0.1.6_@vue+reactivity@3.2.20
+      '@vue/reactivity': 3.2.20
+    transitivePeerDependencies:
+      - '@vue/shared'
+    dev: false
+
   /stream-browserify/2.0.2:
     resolution: {integrity: sha512-nX6hmklHs/gr2FuxYDltq8fJA1GDlxKQCz8O/IM4atRqBH8OORmBNgfvW5gG10GT/qQ9u0CzIvr2X5Pkt6ntqg==}
     dependencies:
@@ -5335,7 +5409,7 @@ packages:
     engines: {node: '>= 0.6'}
     dependencies:
       media-typer: 0.3.0
-      mime-types: 2.1.32
+      mime-types: 2.1.33
     dev: false
 
   /typedarray/0.0.6:
