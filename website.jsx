@@ -12,7 +12,10 @@ const goldPrices = require("./main/datasets/outputGold.json")
 const currencyCounts = require("./main/datasets/dollarsInCurculation.json") // data from: https://fred.stlouisfed.org/series/CURRCIR
 const DatePicker = require("./main/DatePicker")
 
-
+// so I don't have to count digits later
+const million = 1000000
+const billion = million*1000
+const trillion = billion*1000
 
 
 // 
@@ -53,12 +56,12 @@ watch(reactiveData, callDataChange = ()=>{
     
     // update the actual income whenever something changes
     if (cpiOutputElement) {
-        cpiOutputElement.value = usdToCpi(reactiveData.income, reactiveData.date).toFixed(3)
+        cpiOutputElement.value = usdToCpi(reactiveData.income, reactiveData.date).toLocaleString("en-US") + " 🛒"
     }
     
     // update the percentage income whenever something changes
     if (percentOutputElement) {
-        percentOutputElement.value = usdToMillionthsOfPercentage(reactiveData.income, reactiveData.date).toFixed(3)
+        percentOutputElement.value = usdToTillionthsOfPercentage(reactiveData.income, reactiveData.date).toLocaleString("en-US") + " trillionths of %"
     }
     
     // 
@@ -68,17 +71,17 @@ watch(reactiveData, callDataChange = ()=>{
         datesColumnChildren = []
         dollarsColumnChildren = []
         cpiColumnChildren = []
-        for (const [date, dollars, cpi] of reactiveData.savedConversions) {
-            datesColumnChildren.push(<div style="min-height: 1rem"></div>)
-            dollarsColumnChildren.push(<div style="min-height: 1rem"></div>)
-            cpiColumnChildren.push(<div style="min-height: 1rem"></div>)
+        percentColumnChildren = []
+        for (const [date, dollars, cpi, percent] of reactiveData.savedConversions) {
             datesColumnChildren.push(<input type="text" value={date} disabled />)
             dollarsColumnChildren.push(<div>$<input type="number" value={dollars} disabled /></div>)
-            cpiColumnChildren.push(<div>🛒 <input type="number" value={cpi} disabled /></div>)
+            cpiColumnChildren.push(<div><input value={cpi} disabled /></div>)
+            percentColumnChildren.push(<div><input value={percent} disabled /></div>)
         }
-        datesColumn.children = datesColumnChildren
+        datesColumn.children   = datesColumnChildren
         dollarsColumn.children = dollarsColumnChildren
-        cpiColumn.children = cpiColumnChildren
+        cpiColumn.children     = cpiColumnChildren
+        percentColumn.children = percentColumnChildren
         storageObject.savedConversions = reactiveData.savedConversions
     }
 })
@@ -88,42 +91,68 @@ watch(reactiveData, callDataChange = ()=>{
 // 
 var cpiOutputElement, percentOutputElement, datePicker, datesColumn, dollarsColumn, cpiColumn, percentColumn
 document.body = <body class="centered column">
-    <div class="row centered">
+    <style>{`
+        .input-area {
+            display: flex;
+            flex-direction: column;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: flex-start;
+            justify-items: center;
+            text-align: center;
+            height: 15rem;
+        }
+        .saved-column {
+            gap: 1rem;
+            display: flex;
+            flex-direction: column;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: flex-start;
+            justify-items: center;
+            text-align: center;
+            opacity: 0.5;
+        }
+        .saved-column input {
+            width: 22rem;
+        }
+    `}</style>
+    <div class="row centered" style="gap: 2rem; align-items: flex-start;">
         <div class="column centered">
-            <span>Date</span>
-            {datePicker = <DatePicker style="margin-bottom: 2rem;" onSelect={selectedDate=>reactiveData.date = selectedDate} defaultDate={reactiveData.date} setDefaultDate={true} />}
-            {datesColumn = <div class="column centered" style="max-height: 70vh; overflow: auto;">
-            </div>}
-        </div>
-        <div style="min-width: 2rem;"></div>
-        <div class="column centered">
-            <span>Dollars</span>
-            <div style="margin-bottom: 2rem;">
-                $<input type="number" value={reactiveData.income} oninput={e=>reactiveData.income=e.target.value-0} />
+            <div class="input-area">
+                <span>Date</span>
+                {datePicker = <DatePicker style="margin-bottom: 2rem;" onSelect={selectedDate=>reactiveData.date = selectedDate} defaultDate={reactiveData.date} setDefaultDate={true} />}
             </div>
-            {dollarsColumn = <div class="column centered" style="max-height: 70vh; overflow: auto;">
-            </div>}
-        </div>
-        <div style="min-width: 2rem;"></div>
-        <div class="column centered">
-            <span>Your Actual Income</span>
-            <div style="margin-bottom: calc(2rem - 24);" >
-                🛒 {cpiOutputElement = <input type="number" disabled />}
-            </div>
-            <span style="font-size: 12; color: gray;">how much stuff could buy at the time</span>
-            <span style="font-size: 12; color: gray;">(6 month rolling average consumer price index)</span>
-            {cpiColumn = <div class="column centered" style="max-height: 70vh; overflow: auto;">
-            </div>}
+            {datesColumn = <div class="saved-column" />}
         </div>
         <div class="column centered">
-            <span>Your Actual Income</span>
-            <div style="margin-bottom: calc(2rem - 24);" >
-                % (millionths) {percentOutputElement = <input type="number" disabled />}
+            <div class="input-area">
+                <span>Dollars</span>
+                <div style="margin-bottom: 2rem;">
+                    $<input type="number" value={reactiveData.income} oninput={e=>reactiveData.income=e.target.value-0} />
+                </div>
             </div>
-            <span style="font-size: 12; color: gray;">how much stuff could buy at the time</span>
-            <span style="font-size: 12; color: gray;">(6 month rolling average consumer price index)</span>
-            {percentColumn = <div class="column centered" style="max-height: 70vh; overflow: auto;">
-            </div>}
+            {dollarsColumn = <div class="saved-column" />}
+        </div>
+        <div class="column centered">
+            <div class="input-area">
+                <span>Your Actual Income: %</span>
+                {percentOutputElement = <input style="width: 22rem; text-align: center;" disabled />}
+                <span style="font-size: 12; color: gray;">income / dollars-in-circulation at the time</span>
+                <span style="font-size: 12; color: gray;">(6 month rolling average)</span>
+            </div>
+            {percentColumn = <div class="saved-column" />}
+        </div>
+        <div class="column centered">
+            <div class="input-area">
+                <span>Your Actual Income: CPI</span>
+                {cpiOutputElement = <input style="width: 22rem; text-align: center;" disabled />}
+                <span style="font-size: 12; color: gray;">how much stuff could buy at the time</span>
+                <span style="font-size: 12; color: gray;">(6 month rolling average of consumer price index)</span>
+            </div>
+            {cpiColumn = <div class="saved-column" />}
         </div>
         <button
             style="all: unset; background-color: cornflowerblue; color: white; border-color: white; -webkit-text-fill-color: white; padding: 0.5rem 1rem; align-self: flex-start; margin-left: 2rem; margin-top: 1.55rem;"
@@ -174,14 +203,14 @@ function usdToCpi(usdAmount, date) {
     return _.mean(amounts)
 }
 
-function usdToMillionthsOfPercentage(usdAmount, date) {
+function usdToTillionthsOfPercentage(usdAmount, date) {
     let year = date.year
     let month = date.month
     const rollingAverageWindowSize = 6
-    const previousValues = []
+    let previousValues = []
     for (const eachMonthlyEntry of currencyCounts) {
         const countDate = new DateTime(eachMonthlyEntry.DATE)
-        const dollarsInCirculation = eachMonthlyEntry.CURRCIR * 1000000000 // original units are in billions
+        const dollarsInCirculation = eachMonthlyEntry.CURRCIR * billion // original units are in billions
         // basically treat it like a que
         previousValues.push(dollarsInCirculation)
         previousValues = previousValues.slice(-rollingAverageWindowSize)
@@ -189,8 +218,8 @@ function usdToMillionthsOfPercentage(usdAmount, date) {
             break
         }
     }
-    const percentageMillionths = (usdAmount*1000000)/_.mean(previousValues)
-    return percentageMillionths
+    const percentageTillionths = (usdAmount*trillion)/_.mean(previousValues)
+    return percentageTillionths
 }
 
 function updateSavedList() {
