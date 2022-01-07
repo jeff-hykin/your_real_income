@@ -7,8 +7,9 @@ const storageObject = require("storage-object")
 const DateTime = require("good-date")
 const _ = require("lodash")
 
-const cpiPrices = require("./outputCpi.json")
-const goldPrices = require("./outputGold.json")
+const cpiPrices = require("./main/datasets/outputCpi.json")
+const goldPrices = require("./main/datasets/outputGold.json")
+const currencyCounts = require("./main/datasets/dollarsInCurculation.json") // data from: https://fred.stlouisfed.org/series/CURRCIR
 const DatePicker = require("./main/DatePicker")
 
 
@@ -55,6 +56,11 @@ watch(reactiveData, callDataChange = ()=>{
         cpiOutputElement.value = usdToCpi(reactiveData.income, reactiveData.date).toFixed(3)
     }
     
+    // update the percentage income whenever something changes
+    if (percentOutputElement) {
+        percentOutputElement.value = usdToMillionthsOfPercentage(reactiveData.income, reactiveData.date).toFixed(3)
+    }
+    
     // 
     // create all the children
     // 
@@ -80,7 +86,7 @@ watch(reactiveData, callDataChange = ()=>{
 // 
 // elements
 // 
-var cpiOutputElement, datePicker, datesColumn, dollarsColumn, cpiColumn
+var cpiOutputElement, percentOutputElement, datePicker, datesColumn, dollarsColumn, cpiColumn, percentColumn
 document.body = <body class="centered column">
     <div class="row centered">
         <div class="column centered">
@@ -109,9 +115,19 @@ document.body = <body class="centered column">
             {cpiColumn = <div class="column centered" style="max-height: 70vh; overflow: auto;">
             </div>}
         </div>
+        <div class="column centered">
+            <span>Your Actual Income</span>
+            <div style="margin-bottom: calc(2rem - 24);" >
+                % (millionths) {percentOutputElement = <input type="number" disabled />}
+            </div>
+            <span style="font-size: 12; color: gray;">how much stuff could buy at the time</span>
+            <span style="font-size: 12; color: gray;">(6 month rolling average consumer price index)</span>
+            {percentColumn = <div class="column centered" style="max-height: 70vh; overflow: auto;">
+            </div>}
+        </div>
         <button
             style="all: unset; background-color: cornflowerblue; color: white; border-color: white; -webkit-text-fill-color: white; padding: 0.5rem 1rem; align-self: flex-start; margin-left: 2rem; margin-top: 1.55rem;"
-            onclick={()=>reactiveData.savedConversions = [...reactiveData.savedConversions, [`${reactiveData.date.year}-${reactiveData.date.month}`, reactiveData.income, cpiOutputElement.value ]]}
+            onclick={()=>reactiveData.savedConversions = [...reactiveData.savedConversions, [`${reactiveData.date.year}-${reactiveData.date.month}`, reactiveData.income, cpiOutputElement.value, percentOutputElement.value ]]}
             >
                 Save
         </button>
@@ -145,6 +161,7 @@ function usdToCpi(usdAmount, date) {
     let month = date.month
     const amounts = []
     amounts.push(usdAmount / cpiPrices[year][month])
+    // rolling average across 6 months
     for (const each of [1,2,3,4,5,6]) {
         if (month <= 1) {
             month = 12
@@ -155,6 +172,25 @@ function usdToCpi(usdAmount, date) {
         amounts.push(usdAmount / cpiPrices[year][month])
     }
     return _.mean(amounts)
+}
+
+function usdToMillionthsOfPercentage(usdAmount, date) {
+    let year = date.year
+    let month = date.month
+    const rollingAverageWindowSize = 6
+    const previousValues = []
+    for (const eachMonthlyEntry of currencyCounts) {
+        const countDate = new DateTime(eachMonthlyEntry.DATE)
+        const dollarsInCirculation = eachMonthlyEntry.CURRCIR * 1000000000 // original units are in billions
+        // basically treat it like a que
+        previousValues.push(dollarsInCirculation)
+        previousValues = previousValues.slice(-rollingAverageWindowSize)
+        if (countDate.year == year && countDate.month == month) {
+            break
+        }
+    }
+    const percentageMillionths = (usdAmount*1000000)/_.mean(previousValues)
+    return percentageMillionths
 }
 
 function updateSavedList() {
