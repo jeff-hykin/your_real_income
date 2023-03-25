@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+cd "$FORNIX_FOLDER"
+
+cd ./main/
+node ./refresh.js

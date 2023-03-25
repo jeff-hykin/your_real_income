@@ -7,7 +7,7 @@ const storageObject = require("storage-object")
 const DateTime = require("good-date")
 const _ = require("lodash")
 
-const cpiPrices = require("./main/datasets/outputCpi.json")
+const cpiPrices = require("./main/datasets/outputCpi.json") // just run the refresh command to update this
 const goldPrices = require("./main/datasets/outputGold.json")
 const currencyCounts = require("./main/datasets/dollarsInCurculation.json") // data from: https://fred.stlouisfed.org/series/CURRCIR
 const DatePicker = require("./main/DatePicker")
@@ -42,9 +42,6 @@ watch(reactiveData, callDataChange = ()=>{
         reactiveData.date = new DateTime(reactiveData.date.toLocaleDateString())
         return
     }
-    console.log(`reactiveData.date.unix is:`,reactiveData.date.unix)
-    console.log(`minDate.unix is:`,minDate.unix)
-    console.log(`reactiveData.date.unix < minDate.unix is:`,reactiveData.date.unix < minDate.unix)
     if (reactiveData.date.unix > maxDate.unix) {
         reactiveData.date.unix = maxDate.unix
         datePicker.picker.setDate(reactiveData.date, true)
@@ -56,12 +53,17 @@ watch(reactiveData, callDataChange = ()=>{
     
     // update the actual income whenever something changes
     if (cpiOutputElement) {
-        cpiOutputElement.value = usdToCpi(reactiveData.income, reactiveData.date).toLocaleString("en-US") + " 🛒"
+        const asString = `${usdToCpi(reactiveData.income, reactiveData.date).toLocaleString("en-US")}`
+        let [ beforeDecimal, afterDecimal ] = asString.split(".")
+        afterDecimal = (afterDecimal || "").padEnd(3, "0")
+        const formatted = `${beforeDecimal}.${afterDecimal}`
+        console.log(`formatted is:`,formatted)
+        cpiOutputElement.value = formatted + " 🛒"
     }
     
     // update the percentage income whenever something changes
     if (percentOutputElement) {
-        percentOutputElement.value = usdToTillionthsOfPercentage(reactiveData.income, reactiveData.date).toLocaleString("en-US") + " trillionths of %"
+        percentOutputElement.value = usdToTillionthsOfPercentage(reactiveData.income, reactiveData.date).toLocaleString("en-US") + " * 1 trillion = %"
     }
     
     // 
@@ -74,7 +76,7 @@ watch(reactiveData, callDataChange = ()=>{
         percentColumnChildren = []
         for (const [date, dollars, cpi, percent] of reactiveData.savedConversions) {
             datesColumnChildren.push(<input type="text" value={date} disabled />)
-            dollarsColumnChildren.push(<div>$<input type="number" value={dollars} disabled /></div>)
+            dollarsColumnChildren.push(<div style="display: flex; align-items: center;" >$<input type="number" value={dollars} disabled /></div>)
             cpiColumnChildren.push(<div><input value={cpi} disabled /></div>)
             percentColumnChildren.push(<div><input value={percent} disabled /></div>)
         }
@@ -116,7 +118,8 @@ document.body = <body class="centered column">
             opacity: 0.5;
         }
         .saved-column input {
-            width: 22rem;
+            width: 12em;
+            text-align: right;
         }
     `}</style>
     <div class="row centered" style="gap: 2rem; align-items: flex-start;">
@@ -130,7 +133,7 @@ document.body = <body class="centered column">
         <div class="column centered">
             <div class="input-area">
                 <span>Dollars</span>
-                <div style="margin-bottom: 2rem;">
+                <div style="margin-bottom: 2rem;display: flex; align-items: center;">
                     $<input type="number" value={reactiveData.income} oninput={e=>reactiveData.income=e.target.value-0} />
                 </div>
             </div>
@@ -138,7 +141,7 @@ document.body = <body class="centered column">
         </div>
         <div class="column centered">
             <div class="input-area">
-                <span>Your Actual Income: %</span>
+                <span>Your Income as a % of all Dollars in Circulation</span>
                 {percentOutputElement = <input style="width: 22rem; text-align: center;" disabled />}
                 <span style="font-size: 12; color: gray;">income / dollars-in-circulation at the time</span>
                 <span style="font-size: 12; color: gray;">(6 month rolling average)</span>
@@ -150,7 +153,7 @@ document.body = <body class="centered column">
                 <span>Your Actual Income: CPI</span>
                 {cpiOutputElement = <input style="width: 22rem; text-align: center;" disabled />}
                 <span style="font-size: 12; color: gray;">how much stuff could buy at the time</span>
-                <span style="font-size: 12; color: gray;">(6 month rolling average of consumer price index)</span>
+                <span style="font-size: 12; color: gray;">(6 month rolling average of consumer price index: CUSR0000SA0)</span>
             </div>
             {cpiColumn = <div class="saved-column" />}
         </div>
@@ -174,7 +177,7 @@ document.body.style = `
     display: flex; 
     align-items: center; 
     justify-content: center;
-    font-size: 20pt; 
+    font-size: 15pt; 
     font-family: sans-serif;
 `
 // populate
@@ -200,7 +203,7 @@ function usdToCpi(usdAmount, date) {
         }
         amounts.push(usdAmount / cpiPrices[year][month])
     }
-    return _.mean(amounts)
+    return _.mean(amounts).toFixed(3)
 }
 
 function usdToTillionthsOfPercentage(usdAmount, date) {

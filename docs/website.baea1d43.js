@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+})({"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -149,7 +149,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -184,38 +184,45 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/css-baseline/css/3.css":[function(require,module,exports) {
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/css-baseline/css/3.css":[function(require,module,exports) {
 
         var reloadCSS = require('_css_loader');
         module.hot.dispose(reloadCSS);
         module.hot.accept(reloadCSS);
       
-},{"_css_loader":"../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../global.scss":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../global.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/@vue/shared/dist/shared.esm-bundler.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/@vue/shared/dist/shared.esm-bundler.js":[function(require,module,exports) {
 var global = arguments[3];
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.def = exports.capitalize = exports.camelize = exports.PatchFlagNames = exports.NOOP = exports.NO = exports.EMPTY_OBJ = exports.EMPTY_ARR = void 0;
 exports.escapeHtml = escapeHtml;
 exports.escapeHtmlComment = escapeHtmlComment;
+exports.extend = void 0;
 exports.generateCodeFrame = generateCodeFrame;
+exports.hyphenate = exports.hasOwn = exports.hasChanged = exports.getGlobalThis = void 0;
 exports.includeBooleanAttr = includeBooleanAttr;
+exports.isReservedProp = exports.isPromise = exports.isPlainObject = exports.isOn = exports.isObject = exports.isNoUnitNumericStyleProp = exports.isModelListener = exports.isMap = exports.isKnownSvgAttr = exports.isKnownHtmlAttr = exports.isIntegerKey = exports.isHTMLTag = exports.isGloballyWhitelisted = exports.isFunction = exports.isDate = exports.isBooleanAttr = exports.isArray = exports.invokeArrayFns = void 0;
 exports.isSSRSafeAttrName = isSSRSafeAttrName;
+exports.isVoidTag = exports.isSymbol = exports.isString = exports.isSpecialBooleanAttr = exports.isSet = exports.isSVGTag = void 0;
 exports.looseEqual = looseEqual;
 exports.looseIndexOf = looseIndexOf;
 exports.makeMap = makeMap;
 exports.normalizeClass = normalizeClass;
 exports.normalizeProps = normalizeProps;
 exports.normalizeStyle = normalizeStyle;
+exports.objectToString = void 0;
 exports.parseStringStyle = parseStringStyle;
+exports.slotFlagsText = exports.remove = exports.propsToAttrMap = void 0;
 exports.stringifyStyle = stringifyStyle;
-exports.toTypeString = exports.toRawType = exports.toNumber = exports.toHandlerKey = exports.toDisplayString = exports.slotFlagsText = exports.remove = exports.propsToAttrMap = exports.objectToString = exports.isVoidTag = exports.isSymbol = exports.isString = exports.isSpecialBooleanAttr = exports.isSet = exports.isSVGTag = exports.isReservedProp = exports.isPromise = exports.isPlainObject = exports.isOn = exports.isObject = exports.isNoUnitNumericStyleProp = exports.isModelListener = exports.isMap = exports.isKnownSvgAttr = exports.isKnownHtmlAttr = exports.isIntegerKey = exports.isHTMLTag = exports.isGloballyWhitelisted = exports.isFunction = exports.isDate = exports.isBooleanAttr = exports.isArray = exports.invokeArrayFns = exports.hyphenate = exports.hasOwn = exports.hasChanged = exports.getGlobalThis = exports.extend = exports.def = exports.capitalize = exports.camelize = exports.PatchFlagNames = exports.NOOP = exports.NO = exports.EMPTY_OBJ = exports.EMPTY_ARR = void 0;
+exports.toTypeString = exports.toRawType = exports.toNumber = exports.toHandlerKey = exports.toDisplayString = void 0;
 
 /**
  * Make a map and return a function for checking if a key
@@ -879,6 +886,7 @@ exports.getGlobalThis = getGlobalThis;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.ReactiveEffect = exports.ITERATE_KEY = exports.EffectScope = void 0;
 exports.computed = computed;
 exports.customRef = customRef;
 exports.deferredComputed = deferredComputed;
@@ -909,7 +917,6 @@ exports.track = track;
 exports.trigger = trigger;
 exports.triggerRef = triggerRef;
 exports.unref = unref;
-exports.ReactiveEffect = exports.ITERATE_KEY = exports.EffectScope = void 0;
 
 var _shared = require("@vue/shared");
 
@@ -2632,14 +2639,14 @@ const storageObject = module.exports = new Proxy(coreObject, {
         localStorage.setItem(key, JSON.stringify(newValue))
     },
 })
-},{"@vue/reactivity":"../node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js","@vue-reactivity/watch":"../node_modules/@vue-reactivity/watch/dist/index.mjs"}],"../node_modules/.pnpm/util@0.11.1/node_modules/util/support/isBufferBrowser.js":[function(require,module,exports) {
+},{"@vue/reactivity":"../node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js","@vue-reactivity/watch":"../node_modules/@vue-reactivity/watch/dist/index.mjs"}],"../node_modules/util/support/isBufferBrowser.js":[function(require,module,exports) {
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],"../node_modules/.pnpm/util@0.11.1/node_modules/inherits/inherits_browser.js":[function(require,module,exports) {
+},{}],"../node_modules/inherits/inherits_browser.js":[function(require,module,exports) {
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -2664,7 +2671,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],"../node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js":[function(require,module,exports) {
+},{}],"../node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -2873,7 +2880,7 @@ process.chdir = function (dir) {
 process.umask = function () {
   return 0;
 };
-},{}],"../node_modules/.pnpm/util@0.11.1/node_modules/util/util.js":[function(require,module,exports) {
+},{}],"../node_modules/util/util.js":[function(require,module,exports) {
 var process = require("process");
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -3594,7 +3601,7 @@ function callbackify(original) {
 }
 
 exports.callbackify = callbackify;
-},{"./support/isBuffer":"../node_modules/.pnpm/util@0.11.1/node_modules/util/support/isBufferBrowser.js","inherits":"../node_modules/.pnpm/util@0.11.1/node_modules/inherits/inherits_browser.js","process":"../node_modules/.pnpm/process@0.11.10/node_modules/process/browser.js"}],"../node_modules/good-date/index.js":[function(require,module,exports) {
+},{"./support/isBuffer":"../node_modules/util/support/isBufferBrowser.js","inherits":"../node_modules/inherits/inherits_browser.js","process":"../node_modules/process/browser.js"}],"../node_modules/good-date/index.js":[function(require,module,exports) {
 const padZero = (amount) => {
     if (amount < 10) {
         return `0${amount-0}`
@@ -3933,7 +3940,7 @@ DateTime.now = () => {
 }
 
 module.exports = DateTime
-},{"util":"../node_modules/.pnpm/util@0.11.1/node_modules/util/util.js"}],"../node_modules/.pnpm/buffer@4.9.2/node_modules/base64-js/index.js":[function(require,module,exports) {
+},{"util":"../node_modules/util/util.js"}],"../node_modules/base64-js/index.js":[function(require,module,exports) {
 'use strict'
 
 exports.byteLength = byteLength
@@ -4085,7 +4092,7 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],"../node_modules/.pnpm/buffer@4.9.2/node_modules/ieee754/index.js":[function(require,module,exports) {
+},{}],"../node_modules/ieee754/index.js":[function(require,module,exports) {
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
@@ -4172,14 +4179,14 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],"../node_modules/.pnpm/buffer@4.9.2/node_modules/isarray/index.js":[function(require,module,exports) {
+},{}],"../node_modules/isarray/index.js":[function(require,module,exports) {
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],"../node_modules/.pnpm/buffer@4.9.2/node_modules/buffer/index.js":[function(require,module,exports) {
+},{}],"../node_modules/buffer/index.js":[function(require,module,exports) {
 
 var global = arguments[3];
 /*!
@@ -5972,7 +5979,7 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":"../node_modules/.pnpm/buffer@4.9.2/node_modules/base64-js/index.js","ieee754":"../node_modules/.pnpm/buffer@4.9.2/node_modules/ieee754/index.js","isarray":"../node_modules/.pnpm/buffer@4.9.2/node_modules/isarray/index.js","buffer":"../node_modules/.pnpm/buffer@4.9.2/node_modules/buffer/index.js"}],"../node_modules/lodash/lodash.js":[function(require,module,exports) {
+},{"base64-js":"../node_modules/base64-js/index.js","ieee754":"../node_modules/ieee754/index.js","isarray":"../node_modules/isarray/index.js","buffer":"../node_modules/buffer/index.js"}],"../node_modules/lodash/lodash.js":[function(require,module,exports) {
 var global = arguments[3];
 var Buffer = require("buffer").Buffer;
 var define;
@@ -23186,476 +23193,402 @@ var define;
   }
 }.call(this));
 
-},{"buffer":"../node_modules/.pnpm/buffer@4.9.2/node_modules/buffer/index.js"}],"../main/datasets/outputCpi.json":[function(require,module,exports) {
+},{"buffer":"../node_modules/buffer/index.js"}],"../main/datasets/outputCpi.json":[function(require,module,exports) {
 module.exports = {
   "1997": {
-    "1": 103.1,
-    "2": 107.5,
-    "3": 109.1,
-    "4": 114.3,
-    "5": 112.8,
-    "6": 110.1,
-    "7": 107,
-    "8": 108.4,
-    "9": 113.5,
-    "10": 113.4,
-    "11": 111.7,
-    "12": 100,
-    "13": 131.4,
-    "S01": 118.3,
-    "S02": 119.1,
-    "S03": 118.7,
-    "average": 112.4
+    "1": 159.4,
+    "2": 159.7,
+    "3": 159.8,
+    "4": 159.9,
+    "5": 159.9,
+    "6": 160.2,
+    "7": 160.4,
+    "8": 160.8,
+    "9": 161.2,
+    "10": 161.5,
+    "11": 161.7,
+    "12": 161.8,
+    "average": 160.525
   },
   "1998": {
-    "1": 126.8,
-    "2": 118.3,
-    "3": 110.3,
-    "4": 110.2,
-    "5": 113.8,
-    "6": 116.4,
-    "7": 115.8,
-    "8": 115.5,
-    "9": 115.2,
-    "10": 114.7,
-    "11": 113.3,
-    "12": 112.2,
-    "13": 115.2,
-    "S01": 109.8,
-    "S02": 105.3,
-    "S03": 107.6,
-    "average": 113.77499999999999
+    "1": 162,
+    "2": 162,
+    "3": 162,
+    "4": 162.2,
+    "5": 162.6,
+    "6": 162.8,
+    "7": 163.2,
+    "8": 163.4,
+    "9": 163.5,
+    "10": 163.9,
+    "11": 164.1,
+    "12": 164.4,
+    "average": 163.00833333333335
   },
   "1999": {
-    "1": 111.3,
-    "2": 108.7,
-    "3": 111.1,
-    "4": 138.5,
-    "5": 139.7,
-    "6": 134,
-    "7": 138.6,
-    "8": 142.4,
-    "9": 142.2,
-    "10": 138.9,
-    "11": 136.6,
-    "12": 139,
-    "13": 131.8,
-    "S01": 103.1,
-    "S02": 114.4,
-    "S03": 108.8,
-    "average": 127.44375
+    "1": 164.7,
+    "2": 164.7,
+    "3": 164.8,
+    "4": 165.9,
+    "5": 166,
+    "6": 166,
+    "7": 166.7,
+    "8": 167.1,
+    "9": 167.8,
+    "10": 168.1,
+    "11": 168.4,
+    "12": 168.8,
+    "average": 166.58333333333331
   },
   "2000": {
-    "1": 138.8,
-    "2": 141.5,
-    "3": 157,
-    "4": 163.8,
-    "5": 160,
-    "6": 155,
-    "7": 155.7,
-    "8": 160.4,
-    "9": 165.7,
-    "10": 167.1,
-    "11": 165.5,
-    "12": 162.8,
-    "13": 157.8,
-    "S01": 131.7,
-    "S02": 143.8,
-    "S03": 137.8,
-    "average": 154.025
+    "1": 169.3,
+    "2": 170,
+    "3": 171,
+    "4": 170.9,
+    "5": 171.2,
+    "6": 172.2,
+    "7": 172.7,
+    "8": 172.7,
+    "9": 173.6,
+    "10": 173.9,
+    "11": 174.2,
+    "12": 174.6,
+    "average": 172.1916666666667
   },
   "2001": {
-    "1": 157.1,
-    "2": 152.7,
-    "3": 152.6,
-    "4": 152.3,
-    "5": 155.1,
-    "6": 158.6,
-    "7": 157.3,
-    "8": 150.2,
-    "9": 162.6,
-    "10": 160.5,
-    "11": 150.7,
-    "12": 132.4,
-    "13": 153.5,
-    "S01": 145,
-    "S02": 141.5,
-    "S03": 143.2,
-    "average": 151.58125
+    "1": 175.6,
+    "2": 176,
+    "3": 176.1,
+    "4": 176.4,
+    "5": 177.3,
+    "6": 177.7,
+    "7": 177.4,
+    "8": 177.4,
+    "9": 178.1,
+    "10": 177.6,
+    "11": 177.5,
+    "12": 177.4,
+    "average": 177.04166666666666
   },
   "2002": {
-    "1": 125.7,
-    "2": 124.1,
-    "3": 127.5,
-    "4": 144.5,
-    "5": 147.4,
-    "6": 147.9,
-    "7": 148.2,
-    "8": 149.2,
-    "9": 148.8,
-    "10": 142.9,
-    "11": 144,
-    "12": 141.1,
-    "13": 140.9,
-    "S01": 131.9,
-    "S02": 138.5,
-    "S03": 135.2,
-    "average": 139.8625
+    "1": 177.7,
+    "2": 178,
+    "3": 178.5,
+    "4": 179.3,
+    "5": 179.5,
+    "6": 179.6,
+    "7": 180,
+    "8": 180.5,
+    "9": 180.8,
+    "10": 181.2,
+    "11": 181.5,
+    "12": 181.8,
+    "average": 179.86666666666667
   },
   "2003": {
-    "1": 142.2,
-    "2": 164.2,
-    "3": 183,
-    "4": 179,
-    "5": 162.8,
-    "6": 157.5,
-    "7": 160.4,
-    "8": 174.9,
-    "9": 183.9,
-    "10": 166.5,
-    "11": 160.1,
-    "12": 154.6,
-    "13": 165.8,
-    "S01": 150.2,
-    "S02": 154.8,
-    "S03": 152.5,
-    "average": 163.275
+    "1": 182.6,
+    "2": 183.6,
+    "3": 183.9,
+    "4": 183.2,
+    "5": 182.9,
+    "6": 183.1,
+    "7": 183.7,
+    "8": 184.5,
+    "9": 185.1,
+    "10": 184.9,
+    "11": 185,
+    "12": 185.5,
+    "average": 184
   },
   "2004": {
-    "1": 162.7,
-    "2": 168.8,
-    "3": 177.8,
-    "4": 188.4,
-    "5": 215.1,
-    "6": 221,
-    "7": 198.3,
-    "8": 192.8,
-    "9": 196.5,
-    "10": 201.3,
-    "11": 200.8,
-    "12": 190.7,
-    "13": 192.9,
-    "S01": 156.9,
-    "S02": 170.1,
-    "S03": 163.5,
-    "average": 187.35
+    "1": 186.3,
+    "2": 186.7,
+    "3": 187.1,
+    "4": 187.4,
+    "5": 188.2,
+    "6": 188.9,
+    "7": 189.1,
+    "8": 189.2,
+    "9": 189.8,
+    "10": 190.8,
+    "11": 191.7,
+    "12": 191.7,
+    "average": 188.9083333333333
   },
   "2005": {
-    "1": 180.6,
-    "2": 191.1,
-    "3": 211.3,
-    "4": 236.8,
-    "5": 235.6,
-    "6": 224.2,
-    "7": 236.8,
-    "8": 250.3,
-    "9": 274,
-    "10": 267.5,
-    "11": 239.9,
-    "12": 219.2,
-    "13": 230.6,
-    "S01": 170.5,
-    "S02": 202.7,
-    "S03": 186.6,
-    "average": 222.35624999999996
+    "1": 191.6,
+    "2": 192.4,
+    "3": 193.1,
+    "4": 193.7,
+    "5": 193.6,
+    "6": 193.7,
+    "7": 194.9,
+    "8": 196.1,
+    "9": 198.8,
+    "10": 199.1,
+    "11": 198.1,
+    "12": 198.1,
+    "average": 195.26666666666665
   },
   "2006": {
-    "1": 217,
-    "2": 220.6,
-    "3": 233.7,
-    "4": 266.4,
-    "5": 296.2,
-    "6": 295,
-    "7": 287.5,
-    "8": 285.7,
-    "9": 266.4,
-    "10": 243.4,
-    "11": 236.8,
-    "12": 248.7,
-    "13": 258.1,
-    "S01": 208.4,
-    "S02": 212.9,
-    "S03": 210.6,
-    "average": 249.2125
+    "1": 199.3,
+    "2": 199.4,
+    "3": 199.7,
+    "4": 200.7,
+    "5": 201.3,
+    "6": 201.8,
+    "7": 202.9,
+    "8": 203.8,
+    "9": 202.8,
+    "10": 201.9,
+    "11": 202,
+    "12": 203.1,
+    "average": 201.55833333333337
   },
   "2007": {
-    "1": 249.986,
-    "2": 239.107,
-    "3": 267.027,
-    "4": 295.949,
-    "5": 321.782,
-    "6": 300.719,
-    "7": 284.657,
-    "8": 269.087,
-    "9": 277.239,
-    "10": 287.169,
-    "11": 306.045,
-    "12": 299.471,
-    "13": 283.186,
-    "S01": 208.845,
-    "S02": 238.792,
-    "S03": 223.818,
-    "average": 272.0549375
+    "1": 203.437,
+    "2": 204.226,
+    "3": 205.288,
+    "4": 205.904,
+    "5": 206.755,
+    "6": 207.234,
+    "7": 207.603,
+    "8": 207.667,
+    "9": 208.547,
+    "10": 209.19,
+    "11": 210.834,
+    "12": 211.445,
+    "average": 207.34416666666667
   },
   "2008": {
-    "1": 295.297,
-    "2": 304.36,
-    "3": 328.947,
-    "4": 340.999,
-    "5": 364.985,
-    "6": 402.675,
-    "7": 399.883,
-    "8": 373.858,
-    "9": 354.756,
-    "10": 299.635,
-    "11": 219.069,
-    "12": 184.572,
-    "13": 322.42,
-    "S01": 278.248,
-    "S02": 299.302,
-    "S03": 288.775,
-    "average": 316.11131249999994
+    "1": 212.174,
+    "2": 212.687,
+    "3": 213.448,
+    "4": 213.942,
+    "5": 215.208,
+    "6": 217.463,
+    "7": 219.016,
+    "8": 218.69,
+    "9": 218.877,
+    "10": 216.995,
+    "11": 213.153,
+    "12": 211.398,
+    "average": 215.25424999999998
   },
   "2009": {
-    "1": 201.195,
-    "2": 214.239,
-    "3": 214.1,
-    "4": 227.202,
-    "5": 244.139,
-    "6": 273.963,
-    "7": 263.281,
-    "8": 275.24,
-    "9": 281.264,
-    "10": 270.442,
-    "11": 273.972,
-    "12": 270.978,
-    "13": 250.835,
-    "S01": 202.585,
-    "S02": 257.996,
-    "S03": 230.291,
-    "average": 246.98262500000004
+    "1": 211.933,
+    "2": 212.705,
+    "3": 212.495,
+    "4": 212.709,
+    "5": 213.022,
+    "6": 214.79,
+    "7": 214.726,
+    "8": 215.445,
+    "9": 215.861,
+    "10": 216.509,
+    "11": 217.234,
+    "12": 217.347,
+    "average": 214.56466666666668
   },
   "2010": {
-    "1": 277.204,
-    "2": 272.285,
-    "3": 287.327,
-    "4": 294.3,
-    "5": 290.49,
-    "6": 285.249,
-    "7": 288.939,
-    "8": 296.179,
-    "9": 286.652,
-    "10": 291.891,
-    "11": 296.275,
-    "12": 302.521,
-    "13": 289.109,
-    "S01": 267.336,
-    "S02": 271.267,
-    "S03": 269.301,
-    "average": 285.39531250000005
+    "1": 217.488,
+    "2": 217.281,
+    "3": 217.353,
+    "4": 217.403,
+    "5": 217.29,
+    "6": 217.199,
+    "7": 217.605,
+    "8": 217.923,
+    "9": 218.275,
+    "10": 219.035,
+    "11": 219.59,
+    "12": 220.472,
+    "average": 218.07616666666672
   },
   "2011": {
-    "1": 310.272,
-    "2": 319.19,
-    "3": 351.887,
-    "4": 371.167,
-    "5": 378.395,
-    "6": 368.112,
-    "7": 359.842,
-    "8": 358.166,
-    "9": 366.269,
-    "10": 362.843,
-    "11": 358.206,
-    "12": 336.686,
-    "13": 353.42,
-    "S01": 309.348,
-    "S02": 309.863,
-    "S03": 309.605,
-    "average": 345.20443750000004
+    "1": 221.187,
+    "2": 221.898,
+    "3": 223.046,
+    "4": 224.093,
+    "5": 224.806,
+    "6": 224.806,
+    "7": 225.395,
+    "8": 226.106,
+    "9": 226.597,
+    "10": 226.75,
+    "11": 227.169,
+    "12": 227.223,
+    "average": 224.923
   },
   "2012": {
-    "1": 335.865,
-    "2": 348.96,
-    "3": 385.966,
-    "4": 394.357,
-    "5": 401.036,
-    "6": 386.339,
-    "7": 347.082,
-    "8": 369.888,
-    "9": 386.636,
-    "10": 382.714,
-    "11": 338.586,
-    "12": 325.92,
-    "13": 366.946,
-    "S01": 326.203,
-    "S02": 307.492,
-    "S03": 316.847,
-    "average": 357.55231249999997
+    "1": 227.842,
+    "2": 228.329,
+    "3": 228.807,
+    "4": 229.187,
+    "5": 228.713,
+    "6": 228.524,
+    "7": 228.59,
+    "8": 229.918,
+    "9": 231.015,
+    "10": 231.638,
+    "11": 231.249,
+    "12": 231.221,
+    "average": 229.58608333333328
   },
   "2013": {
-    "1": 328.867,
-    "2": 351.676,
-    "3": 367.677,
-    "4": 353.994,
-    "5": 370.861,
-    "6": 367.537,
-    "7": 369.659,
-    "8": 366.601,
-    "9": 356.01,
-    "10": 335.722,
-    "11": 317.208,
-    "12": 321.501,
-    "13": 350.609,
-    "S01": 304.139,
-    "S02": 299.965,
-    "S03": 302.052,
-    "average": 341.50487499999997
+    "1": 231.679,
+    "2": 232.937,
+    "3": 232.282,
+    "4": 231.797,
+    "5": 231.893,
+    "6": 232.445,
+    "7": 232.9,
+    "8": 233.456,
+    "9": 233.544,
+    "10": 233.669,
+    "11": 234.1,
+    "12": 234.719,
+    "average": 232.95174999999998
   },
   "2014": {
-    "1": 328.678,
-    "2": 323.534,
-    "3": 346.738,
-    "4": 361.741,
-    "5": 373.616,
-    "6": 378.9,
-    "7": 381.655,
-    "8": 370.684,
-    "9": 362.723,
-    "10": 329.894,
-    "11": 294.369,
-    "12": 278.317,
-    "13": 344.237,
-    "S01": 298.363,
-    "S02": 294.08,
-    "S03": 296.221,
-    "average": 335.234375
+    "1": 235.288,
+    "2": 235.547,
+    "3": 236.028,
+    "4": 236.468,
+    "5": 236.918,
+    "6": 237.231,
+    "7": 237.498,
+    "8": 237.46,
+    "9": 237.477,
+    "10": 237.43,
+    "11": 236.983,
+    "12": 236.252,
+    "average": 236.715
   },
   "2015": {
-    "1": 229.329,
-    "2": 230.544,
-    "3": 282.16,
-    "4": 265.464,
-    "5": 294.182,
-    "6": 301.639,
-    "7": 311.279,
-    "8": 302.294,
-    "9": 275.333,
-    "10": 249.7,
-    "11": 253.4,
-    "12": 247.153,
-    "13": 270.206,
-    "S01": 230.024,
-    "S02": 223.439,
-    "S03": 226.731,
-    "average": 262.05481249999997
+    "1": 234.747,
+    "2": 235.342,
+    "3": 235.976,
+    "4": 236.222,
+    "5": 237.001,
+    "6": 237.657,
+    "7": 238.034,
+    "8": 238.033,
+    "9": 237.498,
+    "10": 237.733,
+    "11": 238.017,
+    "12": 237.761,
+    "average": 237.00175
   },
   "2016": {
-    "1": 246.482,
-    "2": 216.537,
-    "3": 225.657,
-    "4": 241.28,
-    "5": 259.788,
-    "6": 271.978,
-    "7": 274.646,
-    "8": 266.777,
-    "9": 277.552,
-    "10": 281.54,
-    "11": 277.348,
-    "12": 265.2,
-    "13": 258.732,
-    "S01": 187.287,
-    "S02": 200.829,
-    "S03": 194.058,
-    "average": 246.6056875
+    "1": 237.652,
+    "2": 237.336,
+    "3": 238.08,
+    "4": 238.992,
+    "5": 239.557,
+    "6": 240.222,
+    "7": 240.101,
+    "8": 240.545,
+    "9": 241.176,
+    "10": 241.741,
+    "11": 242.026,
+    "12": 242.637,
+    "average": 240.00541666666666
   },
   "2017": {
-    "1": 284.529,
-    "2": 284.424,
-    "3": 290.984,
-    "4": 297.967,
-    "5": 295.566,
-    "6": 291.433,
-    "7": 289.331,
-    "8": 296.529,
-    "9": 313.092,
-    "10": 299.183,
-    "11": 467.481,
-    "12": 244.888,
-    "13": 712.389,
-    "S01": 217.86,
-    "S02": 232.955,
-    "S03": 225.407,
-    "average": 315.251125
+    "1": 243.618,
+    "2": 244.006,
+    "3": 243.892,
+    "4": 244.193,
+    "5": 244.004,
+    "6": 244.163,
+    "7": 244.243,
+    "8": 245.183,
+    "9": 246.435,
+    "10": 246.626,
+    "11": 247.284,
+    "12": 247.805,
+    "average": 245.121
   },
   "2018": {
-    "1": 237.334,
-    "2": 237.333,
-    "3": 242.062,
-    "4": 254.92,
-    "5": 266.067,
-    "6": 269.437,
-    "7": 269.181,
-    "8": 263.988,
-    "9": 264.092,
-    "10": 271.216,
-    "11": 266.226,
-    "12": 242.334,
-    "13": 257.016,
-    "S01": 251.192,
-    "S02": 262.84,
-    "S03": 257.016,
-    "average": 257.015875
+    "1": 248.859,
+    "2": 249.529,
+    "3": 249.577,
+    "4": 250.227,
+    "5": 250.792,
+    "6": 251.018,
+    "7": 251.214,
+    "8": 251.663,
+    "9": 252.182,
+    "10": 252.772,
+    "11": 252.594,
+    "12": 252.767,
+    "average": 251.09949999999995
   },
   "2019": {
-    "1": 237.399,
-    "2": 226.466,
-    "3": 228.059,
-    "4": 266.7,
-    "5": 276.73,
-    "6": 267.86,
-    "7": 255.9,
-    "8": 248.004,
-    "9": 240.904,
-    "10": 254.099,
-    "11": 258.55,
-    "12": 250.937,
-    "13": 250.967,
-    "S01": 250.536,
-    "S02": 251.399,
-    "S03": 250.967,
-    "average": 250.96731250000002
+    "1": 252.718,
+    "2": 253.322,
+    "3": 254.202,
+    "4": 255.211,
+    "5": 255.29,
+    "6": 255.159,
+    "7": 255.685,
+    "8": 256.059,
+    "9": 256.511,
+    "10": 257.244,
+    "11": 257.803,
+    "12": 258.616,
+    "average": 255.65166666666667
   },
   "2020": {
-    "1": 246.231,
-    "2": 239.441,
-    "3": 226.215,
-    "4": 173.756,
-    "5": 175.403,
-    "6": 206.439,
-    "7": 209.553,
-    "8": 209.503,
-    "9": 210.798,
-    "10": 210.248,
-    "11": 209.98,
-    "12": 210.635,
-    "13": 210.684,
-    "S01": 211.248,
-    "S02": 210.12,
-    "S03": 210.684,
-    "average": 210.68362500000003
+    "1": 259.037,
+    "2": 259.248,
+    "3": 258.124,
+    "4": 256.092,
+    "5": 255.868,
+    "6": 256.986,
+    "7": 258.278,
+    "8": 259.411,
+    "9": 260.029,
+    "10": 260.286,
+    "11": 260.813,
+    "12": 262.035,
+    "average": 258.8505833333333
   },
   "2021": {
-    "1": 215.805,
-    "2": 226.712,
-    "3": 258.266,
-    "4": 260.725,
-    "5": 274.321,
-    "6": 283.34,
-    "7": 303.021,
-    "8": 309.677,
-    "9": 312.334,
-    "S01": 253.195,
-    "average": 269.7396
+    "1": 262.65,
+    "2": 263.638,
+    "3": 264.914,
+    "4": 266.67,
+    "5": 268.444,
+    "6": 270.559,
+    "7": 271.764,
+    "8": 272.87,
+    "9": 274.028,
+    "10": 276.522,
+    "11": 278.711,
+    "12": 280.887,
+    "average": 270.9714166666667
+  },
+  "2022": {
+    "1": 282.599,
+    "2": 284.61,
+    "3": 287.472,
+    "4": 288.611,
+    "5": 291.268,
+    "6": 294.728,
+    "7": 294.628,
+    "8": 295.32,
+    "9": 296.539,
+    "10": 297.987,
+    "11": 298.598,
+    "12": 298.99,
+    "average": 292.61249999999995
+  },
+  "2023": {
+    "1": 300.536,
+    "2": 301.648,
+    "average": 301.092
   }
 };
 },{}],"../main/datasets/outputGold.json":[function(require,module,exports) {
@@ -27476,19 +27409,61 @@ module.exports = [{
   "CURRCIR": 2186.118
 }, {
   "DATE": "2021-08-01",
-  "CURRCIR": 2187.611
+  "CURRCIR": 2187.596
 }, {
   "DATE": "2021-09-01",
-  "CURRCIR": 2194.881
+  "CURRCIR": 2194.822
 }, {
   "DATE": "2021-10-01",
-  "CURRCIR": 2202.485
+  "CURRCIR": 2202.387
 }, {
   "DATE": "2021-11-01",
-  "CURRCIR": 2211.667
+  "CURRCIR": 2211.54
 }, {
   "DATE": "2021-12-01",
-  "CURRCIR": 2223.985
+  "CURRCIR": 2223.817
+}, {
+  "DATE": "2022-01-01",
+  "CURRCIR": 2233.537
+}, {
+  "DATE": "2022-02-01",
+  "CURRCIR": 2232.023
+}, {
+  "DATE": "2022-03-01",
+  "CURRCIR": 2257.565
+}, {
+  "DATE": "2022-04-01",
+  "CURRCIR": 2269.748
+}, {
+  "DATE": "2022-05-01",
+  "CURRCIR": 2272.221
+}, {
+  "DATE": "2022-06-01",
+  "CURRCIR": 2278.11
+}, {
+  "DATE": "2022-07-01",
+  "CURRCIR": 2279.12
+}, {
+  "DATE": "2022-08-01",
+  "CURRCIR": 2275.416
+}, {
+  "DATE": "2022-09-01",
+  "CURRCIR": 2279.946
+}, {
+  "DATE": "2022-10-01",
+  "CURRCIR": 2283.799
+}, {
+  "DATE": "2022-11-01",
+  "CURRCIR": 2291.416
+}, {
+  "DATE": "2022-12-01",
+  "CURRCIR": 2297.344
+}, {
+  "DATE": "2023-01-01",
+  "CURRCIR": 2299.897
+}, {
+  "DATE": "2023-02-01",
+  "CURRCIR": 2297.461
 }];
 },{}],"../node_modules/js-datepicker/dist/datepicker.min.js":[function(require,module,exports) {
 var define;
@@ -28108,7 +28083,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../main/DatePicker.jsx":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../main/DatePicker.jsx":[function(require,module,exports) {
 var _excluded = ["defaultDate", "minDate", "maxDate", "onSelect"];
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -28173,6 +28148,8 @@ module.exports = function (_ref) {
   return element;
 };
 },{"good-date":"../node_modules/good-date/index.js","js-datepicker":"../node_modules/js-datepicker/dist/datepicker.min.js","./stuff.css":"../main/stuff.css"}],"../website.jsx":[function(require,module,exports) {
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -28180,8 +28157,6 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -28212,7 +28187,8 @@ var DateTime = require("good-date");
 
 var _ = require("lodash");
 
-var cpiPrices = require("./main/datasets/outputCpi.json");
+var cpiPrices = require("./main/datasets/outputCpi.json"); // just run the refresh command to update this
+
 
 var goldPrices = require("./main/datasets/outputGold.json");
 
@@ -28255,10 +28231,6 @@ watch(reactiveData, callDataChange = function callDataChange() {
     return;
   }
 
-  console.log("reactiveData.date.unix is:", reactiveData.date.unix);
-  console.log("minDate.unix is:", minDate.unix);
-  console.log("reactiveData.date.unix < minDate.unix is:", reactiveData.date.unix < minDate.unix);
-
   if (reactiveData.date.unix > maxDate.unix) {
     reactiveData.date.unix = maxDate.unix;
     datePicker.picker.setDate(reactiveData.date, true);
@@ -28271,12 +28243,22 @@ watch(reactiveData, callDataChange = function callDataChange() {
 
 
   if (cpiOutputElement) {
-    cpiOutputElement.value = usdToCpi(reactiveData.income, reactiveData.date).toLocaleString("en-US") + " 🛒";
+    var asString = "".concat(usdToCpi(reactiveData.income, reactiveData.date).toLocaleString("en-US"));
+
+    var _asString$split = asString.split("."),
+        _asString$split2 = _slicedToArray(_asString$split, 2),
+        beforeDecimal = _asString$split2[0],
+        afterDecimal = _asString$split2[1];
+
+    afterDecimal = (afterDecimal || "").padEnd(3, "0");
+    var formatted = "".concat(beforeDecimal, ".").concat(afterDecimal);
+    console.log("formatted is:", formatted);
+    cpiOutputElement.value = formatted + " 🛒";
   } // update the percentage income whenever something changes
 
 
   if (percentOutputElement) {
-    percentOutputElement.value = usdToTillionthsOfPercentage(reactiveData.income, reactiveData.date).toLocaleString("en-US") + " trillionths of %";
+    percentOutputElement.value = usdToTillionthsOfPercentage(reactiveData.income, reactiveData.date).toLocaleString("en-US") + " * 1 trillion = %";
   } // 
   // create all the children
   // 
@@ -28304,7 +28286,9 @@ watch(reactiveData, callDataChange = function callDataChange() {
           value: date,
           disabled: true
         }));
-        dollarsColumnChildren.push( /*#__PURE__*/React.createElement("div", null, "$", /*#__PURE__*/React.createElement("input", {
+        dollarsColumnChildren.push( /*#__PURE__*/React.createElement("div", {
+          style: "display: flex; align-items: center;"
+        }, "$", /*#__PURE__*/React.createElement("input", {
           type: "number",
           value: dollars,
           disabled: true
@@ -28337,7 +28321,7 @@ watch(reactiveData, callDataChange = function callDataChange() {
 var cpiOutputElement, percentOutputElement, datePicker, datesColumn, dollarsColumn, cpiColumn, percentColumn;
 document.body = /*#__PURE__*/React.createElement("body", {
   class: "centered column"
-}, /*#__PURE__*/React.createElement("style", null, "\n        .input-area {\n            display: flex;\n            flex-direction: column;\n            display: flex;\n            align-items: center;\n            align-content: center;\n            justify-content: flex-start;\n            justify-items: center;\n            text-align: center;\n            height: 15rem;\n        }\n        .saved-column {\n            gap: 1rem;\n            display: flex;\n            flex-direction: column;\n            display: flex;\n            align-items: center;\n            align-content: center;\n            justify-content: flex-start;\n            justify-items: center;\n            text-align: center;\n            opacity: 0.5;\n        }\n        .saved-column input {\n            width: 22rem;\n        }\n    "), /*#__PURE__*/React.createElement("div", {
+}, /*#__PURE__*/React.createElement("style", null, "\n        .input-area {\n            display: flex;\n            flex-direction: column;\n            display: flex;\n            align-items: center;\n            align-content: center;\n            justify-content: flex-start;\n            justify-items: center;\n            text-align: center;\n            height: 15rem;\n        }\n        .saved-column {\n            gap: 1rem;\n            display: flex;\n            flex-direction: column;\n            display: flex;\n            align-items: center;\n            align-content: center;\n            justify-content: flex-start;\n            justify-items: center;\n            text-align: center;\n            opacity: 0.5;\n        }\n        .saved-column input {\n            width: 12em;\n            text-align: right;\n        }\n    "), /*#__PURE__*/React.createElement("div", {
   class: "row centered",
   style: "gap: 2rem; align-items: flex-start;"
 }, /*#__PURE__*/React.createElement("div", {
@@ -28358,7 +28342,7 @@ document.body = /*#__PURE__*/React.createElement("body", {
 }, /*#__PURE__*/React.createElement("div", {
   class: "input-area"
 }, /*#__PURE__*/React.createElement("span", null, "Dollars"), /*#__PURE__*/React.createElement("div", {
-  style: "margin-bottom: 2rem;"
+  style: "margin-bottom: 2rem;display: flex; align-items: center;"
 }, "$", /*#__PURE__*/React.createElement("input", {
   type: "number",
   value: reactiveData.income,
@@ -28371,7 +28355,7 @@ document.body = /*#__PURE__*/React.createElement("body", {
   class: "column centered"
 }, /*#__PURE__*/React.createElement("div", {
   class: "input-area"
-}, /*#__PURE__*/React.createElement("span", null, "Your Actual Income: %"), percentOutputElement = /*#__PURE__*/React.createElement("input", {
+}, /*#__PURE__*/React.createElement("span", null, "Your Income as a % of all Dollars in Circulation"), percentOutputElement = /*#__PURE__*/React.createElement("input", {
   style: "width: 22rem; text-align: center;",
   disabled: true
 }), /*#__PURE__*/React.createElement("span", {
@@ -28391,7 +28375,7 @@ document.body = /*#__PURE__*/React.createElement("body", {
   style: "font-size: 12; color: gray;"
 }, "how much stuff could buy at the time"), /*#__PURE__*/React.createElement("span", {
   style: "font-size: 12; color: gray;"
-}, "(6 month rolling average of consumer price index)")), cpiColumn = /*#__PURE__*/React.createElement("div", {
+}, "(6 month rolling average of consumer price index: CUSR0000SA0)")), cpiColumn = /*#__PURE__*/React.createElement("div", {
   class: "saved-column"
 })), /*#__PURE__*/React.createElement("button", {
   style: "all: unset; background-color: cornflowerblue; color: white; border-color: white; -webkit-text-fill-color: white; padding: 0.5rem 1rem; align-self: flex-start; margin-left: 2rem; margin-top: 1.55rem;",
@@ -28407,7 +28391,7 @@ document.body = /*#__PURE__*/React.createElement("body", {
   style: "position: absolute; bottom: 1.5rem; min-width: 100vw; font-size: 12pt; color: cornflowerblue;",
   href: "https://github.com/jeff-hykin/your_real_income.git"
 }, "Source Code (Github Link)"));
-document.body.style = "\n    display: flex; \n    align-items: center; \n    justify-content: center;\n    font-size: 20pt; \n    font-family: sans-serif;\n"; // populate
+document.body.style = "\n    display: flex; \n    align-items: center; \n    justify-content: center;\n    font-size: 15pt; \n    font-family: sans-serif;\n"; // populate
 
 callDataChange(); // 
 // 
@@ -28434,7 +28418,7 @@ function usdToCpi(usdAmount, date) {
     amounts.push(usdAmount / cpiPrices[year][month]);
   }
 
-  return _.mean(amounts);
+  return _.mean(amounts).toFixed(3);
 }
 
 function usdToTillionthsOfPercentage(usdAmount, date) {
@@ -28474,7 +28458,7 @@ function usdToTillionthsOfPercentage(usdAmount, date) {
 function updateSavedList() {
   storageObject.savedConversions || (storageObject.savedConversions = []);
 }
-},{"css-baseline/css/3":"../node_modules/css-baseline/css/3.css","./global.scss":"../global.scss","@vue/reactivity":"../node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js","@vue-reactivity/watch":"../node_modules/@vue-reactivity/watch/dist/index.mjs","storage-object":"../node_modules/storage-object/main/main.js","good-date":"../node_modules/good-date/index.js","lodash":"../node_modules/lodash/lodash.js","./main/datasets/outputCpi.json":"../main/datasets/outputCpi.json","./main/datasets/outputGold.json":"../main/datasets/outputGold.json","./main/datasets/dollarsInCurculation.json":"../main/datasets/dollarsInCurculation.json","./main/DatePicker":"../main/DatePicker.jsx"}],"../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"css-baseline/css/3":"../node_modules/css-baseline/css/3.css","./global.scss":"../global.scss","@vue/reactivity":"../node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js","@vue-reactivity/watch":"../node_modules/@vue-reactivity/watch/dist/index.mjs","storage-object":"../node_modules/storage-object/main/main.js","good-date":"../node_modules/good-date/index.js","lodash":"../node_modules/lodash/lodash.js","./main/datasets/outputCpi.json":"../main/datasets/outputCpi.json","./main/datasets/outputGold.json":"../main/datasets/outputGold.json","./main/datasets/dollarsInCurculation.json":"../main/datasets/dollarsInCurculation.json","./main/DatePicker":"../main/DatePicker.jsx"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -28502,7 +28486,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57523" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64442" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -28678,5 +28662,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../website.jsx"], null)
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../website.jsx"], null)
 //# sourceMappingURL=/website.baea1d43.js.map
