@@ -1,4 +1,4 @@
-[
+export default [
   {
     "DATE": "1917-08-01",
     "CURRCIR": 3.714
