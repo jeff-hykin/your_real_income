@@ -9,6 +9,7 @@ import { addDynamicStyleFlags, setupStyles, createCssClass, setupClassStyles, ho
 import cpiPrices from "./datasets/outputCpi.js" // just run the refresh command to update this
 import goldPrices from "./datasets/outputGold.js"
 import currencyCounts from "./datasets/dollarsInCurculation.js" // data from: https://fred.stlouisfed.org/series/CURRCIR
+import populationAt from "./datasets/populationAt.js" // data from: https://www.macrotrends.net/global-metrics/countries/USA/united-states/population
 import DatePicker from "./DatePicker.js"
 
 Object.assign(window, { cpiPrices, goldPrices })
@@ -21,7 +22,6 @@ const { html } = Elemental({
 const million = 1000000
 const billion = million*1000
 const trillion = billion*1000
-const unitedStatesPopulationEstimate = 331002651
 
 // 
 // define data for this page
@@ -63,7 +63,6 @@ watch(reactiveData, callDataChange = ()=>{
         let [ beforeDecimal, afterDecimal ] = asString.split(".")
         afterDecimal = (afterDecimal || "").padEnd(3, "0")
         const formatted = `${beforeDecimal}.${afterDecimal}`
-        console.log(`formatted is:`,formatted)
         cpiOutputElement.value = formatted + " 🛒"
     }
     
@@ -204,7 +203,12 @@ document.body = html`<body class="centered column">
         >
             Clear
     </button>
-    <a style="position: absolute; bottom: 1.5rem; min-width: 100vw; font-size: 12pt; color: cornflowerblue;" href="https://github.com/jeff-hykin/your_real_income.git">Source Code (Github Link)</a>
+    <a style="position: absolute; bottom: 1.5rem; min-width: 100vw; font-size: 12pt; color: cornflowerblue;" href="https://github.com/jeff-hykin/your_real_income.git">
+        Source Code (Github Link)
+        <div><br>.</div>
+        <div>money supply: https://fred.stlouisfed.org/series/CURRCIR</div>
+        <div>CPI: https://download.bls.gov/pub/time.series/cu/cu.data.0.Current</div>
+    </a>
 </body>`
 
 document.body.style = `
@@ -221,16 +225,18 @@ document.body.style = `
 // 
 // 
 const maxCpiYear = Math.max(...Object.keys(cpiPrices).map(each=>each-0).filter(each=>each))
-const minCpiYear = Math.max(...Object.keys(cpiPrices).map(each=>each-0).filter(each=>each))
+const minCpiYear = Math.min(...Object.keys(cpiPrices).map(each=>each-0).filter(each=>each))
 function usdToCpi(usdAmount, date) {
     let year = date.year
     let month = date.month
     const amounts = []
     if (year > maxCpiYear) {
         year = maxCpiYear
+        console.debug(`max year is:`,year)
     }
     if (year < minCpiYear) {
         year = minCpiYear
+        console.debug(`min year is:`,year)
     }
     amounts.push(usdAmount / cpiPrices[year][month])
     // rolling average across 6 months
@@ -262,7 +268,7 @@ function usdToPerCapitaPercentage(usdAmount, date) {
         }
     }
     const smoothedMoneyInCirculation = _.mean(previousValues)
-    const moneyPerCapita = smoothedMoneyInCirculation / unitedStatesPopulationEstimate
+    const moneyPerCapita = smoothedMoneyInCirculation / populationAt[year]
     const yourMoneyPerCapitaPercent = (usdAmount/moneyPerCapita)*100
     const percentageTillionths = (usdAmount*trillion)/_.mean(previousValues)
     return yourMoneyPerCapitaPercent
