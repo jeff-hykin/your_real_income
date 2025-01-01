@@ -21,7 +21,7 @@ const { html } = Elemental({
 const million = 1000000
 const billion = million*1000
 const trillion = billion*1000
-
+const unitedStatesPopulationEstimate = 331002651
 
 // 
 // define data for this page
@@ -69,7 +69,12 @@ watch(reactiveData, callDataChange = ()=>{
     
     // update the percentage income whenever something changes
     if (percentOutputElement) {
-        percentOutputElement.value = usdToTillionthsOfPercentage(reactiveData.income, reactiveData.date).toLocaleString("en-US") + " * 1 trillion = %"
+        const number = usdToPerCapitaPercentage(reactiveData.income, reactiveData.date)
+        let string = number.toLocaleString("en-US").split(".")[0]
+        if (string.length < 3) {
+            string = number.toFixed(2)
+        }
+        percentOutputElement.value = string + "%"
     }
     
     // 
@@ -164,9 +169,9 @@ document.body = html`<body class="centered column">
         </div>
         <div class="column centered">
             <div class="input-area">
-                <span>Your Income as a % of all Dollars in Circulation</span>
+                <span>% of money supply</span>
                 ${percentOutputElement = html`<input style="width: 22rem; text-align: center;" disabled />`}
-                <span style="font-size: 12; color: gray;">income / dollars-in-circulation at the time</span>
+                <span style="font-size: 12; color: gray;">money / (dollars-in-circulation at the time / population of the US)</span>
                 <span style="font-size: 12; color: gray;">(6 month rolling average)</span>
             </div>
             ${percentColumn = html`<div class="saved-column" />`}
@@ -241,7 +246,7 @@ function usdToCpi(usdAmount, date) {
     return _.mean(amounts).toFixed(3)
 }
 
-function usdToTillionthsOfPercentage(usdAmount, date) {
+function usdToPerCapitaPercentage(usdAmount, date) {
     let year = date.year
     let month = date.month
     const rollingAverageWindowSize = 6
@@ -256,8 +261,11 @@ function usdToTillionthsOfPercentage(usdAmount, date) {
             break
         }
     }
+    const smoothedMoneyInCirculation = _.mean(previousValues)
+    const moneyPerCapita = smoothedMoneyInCirculation / unitedStatesPopulationEstimate
+    const yourMoneyPerCapitaPercent = (usdAmount/moneyPerCapita)*100
     const percentageTillionths = (usdAmount*trillion)/_.mean(previousValues)
-    return percentageTillionths
+    return yourMoneyPerCapitaPercent
 }
 
 function updateSavedList() {
