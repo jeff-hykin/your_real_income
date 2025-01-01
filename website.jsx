@@ -1,6 +1,4 @@
 // add CSS before everything else
-require("css-baseline/css/3")
-require("./global.scss")
 const { reactive } = require("@vue/reactivity")
 const { watch } = require("@vue-reactivity/watch")
 const storageObject = require("storage-object")
@@ -10,7 +8,7 @@ const _ = require("lodash")
 const cpiPrices = require("./main/datasets/outputCpi.json") // just run the refresh command to update this
 const goldPrices = require("./main/datasets/outputGold.json")
 const currencyCounts = require("./main/datasets/dollarsInCurculation.json") // data from: https://fred.stlouisfed.org/series/CURRCIR
-const DatePicker = require("./main/DatePicker")
+import DatePicker from "./main/DatePicker.js"
 
 // so I don't have to count digits later
 const million = 1000000

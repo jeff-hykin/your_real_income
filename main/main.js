@@ -11,6 +11,9 @@ import goldPrices from "./datasets/outputGold.js"
 import currencyCounts from "./datasets/dollarsInCurculation.js" // data from: https://fred.stlouisfed.org/series/CURRCIR
 import DatePicker from "./DatePicker.js"
 
+Object.assign(window, { cpiPrices, goldPrices })
+console.debug(`cpiPrices is:`,cpiPrices)
+console.debug(`goldPrices is:`,goldPrices)
 const { html } = Elemental({
     DatePicker,
 })
@@ -39,6 +42,7 @@ window.reactiveData = reactiveData
 // 
 let callDataChange
 watch(reactiveData, callDataChange = ()=>{
+    console.log(`data changed`)
     // Make the date a datetime
     if (!(reactiveData.date instanceof DateTime) && (reactiveData.date instanceof Date)) {
         reactiveData.date = new DateTime(reactiveData.date.toLocaleDateString())
@@ -104,6 +108,9 @@ watch(reactiveData, callDataChange = ()=>{
 var cpiOutputElement, percentOutputElement, datePicker, datesColumn, dollarsColumn, cpiColumn, percentColumn
 document.body = html`<body class="centered column">
     <style>${`
+        body {
+            transform: scale(0.5);
+        }
         .input-area {
             display: flex;
             flex-direction: column;
@@ -136,7 +143,10 @@ document.body = html`<body class="centered column">
         <div class="column centered">
             <div class="input-area">
                 <span>Date</span>
-                ${datePicker = html`<DatePicker style="margin-bottom: 2rem;" onSelect=${selectedDate=>reactiveData.date = selectedDate} defaultDate=${reactiveData.date} setDefaultDate=${true} />`}
+                ${datePicker = html`<DatePicker style="margin-bottom: 2rem;" onSelect=${selectedDate=>{
+                    reactiveData.date = selectedDate
+                    callDataChange()
+                }} defaultDate=${reactiveData.date} setDefaultDate=${true} />`}
             </div>
             ${datesColumn = html`<div class="saved-column" />`}
         </div>
@@ -144,7 +154,10 @@ document.body = html`<body class="centered column">
             <div class="input-area">
                 <span>Dollars</span>
                 <div style="margin-bottom: 2rem;display: flex; align-items: center;">
-                    $<input type="number" value=${reactiveData.income} oninput=${e=>reactiveData.income=e.target.value-0} />
+                    $<input type="number" value=${reactiveData.income} oninput=${e=>{
+                        reactiveData.income=e.target.value-0
+                        callDataChange()
+                    }} />
                 </div>
             </div>
             ${dollarsColumn = html`<div class="saved-column" />`}
@@ -168,15 +181,21 @@ document.body = html`<body class="centered column">
             ${cpiColumn = html`<div class="saved-column" />`}
         </div>
         <button
-            style="all: unset; background-color: cornflowerblue; color: white; border-color: white; -webkit-text-fill-color: white; padding: 0.5rem 1rem; align-self: flex-start; margin-left: 2rem; margin-top: 1.55rem;"
-            onclick=${()=>reactiveData.savedConversions = [...reactiveData.savedConversions, [`${reactiveData.date.year}-${reactiveData.date.month}`, reactiveData.income, cpiOutputElement.value, percentOutputElement.value ]]}
+            style="all: unset; background-color: cornflowerblue; color: white; border-color: white; -webkit-text-fill-color: white; padding: 0.5rem 1rem; align-self: flex-start; margin-left: 2rem; margin-top: 1.55rem; cursor: pointer;"
+            onclick=${()=>{
+                reactiveData.savedConversions = [...reactiveData.savedConversions, [`${reactiveData.date.year}-${reactiveData.date.month}`, reactiveData.income, cpiOutputElement.value, percentOutputElement.value ]]
+                callDataChange()
+            }}
             >
                 Save
         </button>
     </div>
     <button
         style="all: unset; background-color: gray; color: white; border-color: white; -webkit-text-fill-color: white; padding: 0.5rem 1rem; margin-top: 1.55rem;"
-        onclick=${()=>(reactiveData.savedConversions = [],storageObject.savedConversions=[])}
+        onclick=${()=>{
+            (reactiveData.savedConversions = [],storageObject.savedConversions=[])
+            callDataChange()
+        }}
         >
             Clear
     </button>
@@ -198,10 +217,18 @@ callDataChange()
 // helpers
 // 
 // 
+const maxCpiYear = Math.max(...Object.keys(cpiPrices).map(each=>each-0).filter(each=>each))
+const minCpiYear = Math.max(...Object.keys(cpiPrices).map(each=>each-0).filter(each=>each))
 function usdToCpi(usdAmount, date) {
     let year = date.year
     let month = date.month
     const amounts = []
+    if (year > maxCpiYear) {
+        year = maxCpiYear
+    }
+    if (year < minCpiYear) {
+        year = minCpiYear
+    }
     amounts.push(usdAmount / cpiPrices[year][month])
     // rolling average across 6 months
     for (const each of [1,2,3,4,5,6]) {
