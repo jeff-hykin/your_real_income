@@ -209,8 +209,6 @@ document.body.style = `
     font-size: 15pt; 
     font-family: sans-serif;
 `
-// populate
-callDataChange()
 
 // 
 // 
@@ -265,3 +263,6 @@ function usdToTillionthsOfPercentage(usdAmount, date) {
 function updateSavedList() {
     storageObject.savedConversions || (storageObject.savedConversions = [])
 }
+
+// populate
+callDataChange()
