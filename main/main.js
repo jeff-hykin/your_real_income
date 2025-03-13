@@ -12,6 +12,9 @@ import currencyCounts from "./datasets/dollarsInCurculation.js" // data from: ht
 import populationAt from "./datasets/populationAt.js" // data from: https://www.macrotrends.net/global-metrics/countries/USA/united-states/population
 import DatePicker from "./DatePicker.js"
 
+// 481, 783, 1043
+// 0.28, 0.5, 0.68,
+
 Object.assign(window, { cpiPrices, goldPrices })
 console.debug(`cpiPrices is:`,cpiPrices)
 console.debug(`goldPrices is:`,goldPrices)
@@ -113,7 +116,10 @@ var cpiOutputElement, percentOutputElement, datePicker, datesColumn, dollarsColu
 document.body = html`<body class="centered column">
     <style>${`
         body {
-            transform: scale(0.5);
+            /* transform: scale(0.5); */
+        }
+        [name="main"] {
+          /* transform: scale(0.5); */
         }
         .input-area {
             display: flex;
@@ -143,72 +149,78 @@ document.body = html`<body class="centered column">
             text-align: right;
         }
     `}</style>
-    <div class="row centered" style="gap: 2rem; align-items: flex-start;">
-        <div class="column centered">
-            <div class="input-area">
-                <span>Date</span>
-                ${datePicker = html`<DatePicker style="margin-bottom: 2rem;" onSelect=${selectedDate=>{
-                    reactiveData.date = selectedDate
-                    callDataChange()
-                }} defaultDate=${reactiveData.date} setDefaultDate=${true} />`}
-            </div>
-            ${datesColumn = html`<div class="saved-column" />`}
-        </div>
-        <div class="column centered">
-            <div class="input-area">
-                <span>Dollars</span>
-                <div style="margin-bottom: 2rem;display: flex; align-items: center;">
-                    $<input type="number" value=${reactiveData.income} oninput=${e=>{
-                        reactiveData.income=e.target.value-0
+    <div name="main" style="overflow: auto; max-width: 100vw; min-width: 100vw;">
+        <div class="row centered" style="gap: 2rem; align-items: flex-start;min-width: min-content;padding: 2rem;">
+            <div class="column centered">
+                <div class="input-area">
+                    <span>Date</span>
+                    ${datePicker = html`<DatePicker style="margin-bottom: 2rem;" onSelect=${selectedDate=>{
+                        reactiveData.date = selectedDate
                         callDataChange()
-                    }} />
+                    }} defaultDate=${reactiveData.date} setDefaultDate=${true} />`}
                 </div>
+                ${datesColumn = html`<div class="saved-column" />`}
             </div>
-            ${dollarsColumn = html`<div class="saved-column" />`}
-        </div>
-        <div class="column centered">
-            <div class="input-area">
-                <span>% of money supply</span>
-                ${percentOutputElement = html`<input style="width: 22rem; text-align: center;" disabled />`}
-                <span style="font-size: 12; color: gray;">money / (dollars-in-circulation at the time / population of the US)</span>
-                <span style="font-size: 12; color: gray;">(6 month rolling average)</span>
+            <div class="column centered">
+                <div class="input-area">
+                    <span>Dollars</span>
+                    <div style="margin-bottom: 2rem;display: flex; align-items: center;">
+                        $<input type="number" value=${reactiveData.income} oninput=${e=>{
+                            reactiveData.income=e.target.value-0
+                            callDataChange()
+                        }} />
+                    </div>
+                </div>
+                ${dollarsColumn = html`<div class="saved-column" />`}
             </div>
-            ${percentColumn = html`<div class="saved-column" />`}
-        </div>
-        <div class="column centered">
-            <div class="input-area">
-                <span>Your Actual Income: CPI</span>
-                ${cpiOutputElement = html`<input style="width: 22rem; text-align: center;" disabled />`}
-                <span style="font-size: 12; color: gray;">how much stuff could buy at the time</span>
-                <span style="font-size: 12; color: gray;">(6 month rolling average of consumer price index: CUSR0000SA0)</span>
+            <div class="column centered">
+                <div class="input-area">
+                    <span>per-capita % of money supply</span>
+                    ${percentOutputElement = html`<input style="width: 22rem; text-align: center;" disabled />`}
+                    <span style="font-size: 12; color: gray;">money / (dollars-in-circulation at the time / population of the US)</span>
+                    <span style="font-size: 12; color: gray;">(6 month rolling average)</span>
+                </div>
+                ${percentColumn = html`<div class="saved-column" />`}
             </div>
-            ${cpiColumn = html`<div class="saved-column" />`}
+            <div class="column centered">
+                <div class="input-area">
+                    <span>Your Actual Income: CPI</span>
+                    ${cpiOutputElement = html`<input style="width: 22rem; text-align: center;" disabled />`}
+                    <span style="font-size: 12; color: gray;">how much stuff could buy at the time</span>
+                    <span style="font-size: 12; color: gray;">(6 month rolling average of consumer price index: CUSR0000SA0)</span>
+                </div>
+                ${cpiColumn = html`<div class="saved-column" />`}
+            </div>
+            <button
+                style="all: unset; background-color: cornflowerblue; color: white; border-color: white; -webkit-text-fill-color: white; padding: 0.5rem 1rem; align-self: flex-start; margin-left: 2rem; margin-top: 1.55rem; cursor: pointer;"
+                onclick=${()=>{
+                    reactiveData.savedConversions = [...reactiveData.savedConversions, [`${reactiveData.date.year}-${reactiveData.date.month}`, reactiveData.income, cpiOutputElement.value, percentOutputElement.value ]]
+                    callDataChange()
+                }}
+                >
+                    Save
+            </button>
         </div>
         <button
-            style="all: unset; background-color: cornflowerblue; color: white; border-color: white; -webkit-text-fill-color: white; padding: 0.5rem 1rem; align-self: flex-start; margin-left: 2rem; margin-top: 1.55rem; cursor: pointer;"
+            style="all: unset; background-color: gray; color: white; border-color: white; -webkit-text-fill-color: white; padding: 0.5rem 1rem; margin-top: 1.55rem;"
             onclick=${()=>{
-                reactiveData.savedConversions = [...reactiveData.savedConversions, [`${reactiveData.date.year}-${reactiveData.date.month}`, reactiveData.income, cpiOutputElement.value, percentOutputElement.value ]]
+                (reactiveData.savedConversions = [],storageObject.savedConversions=[])
                 callDataChange()
             }}
             >
-                Save
+                Clear
         </button>
     </div>
-    <button
-        style="all: unset; background-color: gray; color: white; border-color: white; -webkit-text-fill-color: white; padding: 0.5rem 1rem; margin-top: 1.55rem;"
-        onclick=${()=>{
-            (reactiveData.savedConversions = [],storageObject.savedConversions=[])
-            callDataChange()
-        }}
-        >
-            Clear
-    </button>
-    <a style="position: absolute; bottom: 1.5rem; min-width: 100vw; font-size: 12pt; color: cornflowerblue;" href="https://github.com/jeff-hykin/your_real_income.git">
+    <a style="position: fixed; bottom: 1.5rem; min-width: 100vw; font-size: 12pt; color: cornflowerblue;" href="https://github.com/jeff-hykin/your_real_income.git">
         Source Code (Github Link)
         <div><br>.</div>
         <div>money supply: https://fred.stlouisfed.org/series/CURRCIR</div>
         <div>CPI: https://download.bls.gov/pub/time.series/cu/cu.data.0.Current</div>
     </a>
+
+    <div style="position: fixed; right: 1rem; top: 1rem; display: flex; align-items: flex-end; justify-content: flex-end; width: max-content; max-width: 90vw; font-size: 12pt; color: gray; text-align: right;">
+        Note: CPI prices after ${mostRecentYear}-${mostRecentMonth} are not available, so it will default to using ${mostRecentYear}-${mostRecentMonth} CPI for future values
+    </div>
 </body>`
 
 document.body.style = `
