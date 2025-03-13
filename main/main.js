@@ -121,6 +121,13 @@ document.body = html`<body class="centered column">
         [name="main"] {
           /* transform: scale(0.5); */
         }
+        a {
+            font-size: 12pt;
+            color: cornflowerblue;
+        }
+        input {
+            width: 10rem;
+        }
         .input-area {
             display: flex;
             flex-direction: column;
@@ -145,12 +152,21 @@ document.body = html`<body class="centered column">
             opacity: 0.5;
         }
         .saved-column input {
-            width: 12em;
+            width: 8em;
             text-align: right;
         }
     `}</style>
     <div name="main" style="overflow: auto; max-width: 100vw; min-width: 100vw;">
         <div class="row centered" style="gap: 2rem; align-items: flex-start;min-width: min-content;padding: 2rem;">
+            <button
+                style="all: unset; background-color: cornflowerblue; color: white; border-color: white; -webkit-text-fill-color: white; padding: 0.5rem 1rem; align-self: flex-start; margin-right: 2rem; margin-top: 1.55rem; cursor: pointer;"
+                onclick=${()=>{
+                    reactiveData.savedConversions = [...reactiveData.savedConversions, [`${reactiveData.date.year}-${reactiveData.date.month}`, reactiveData.income, cpiOutputElement.value, percentOutputElement.value ]]
+                    callDataChange()
+                }}
+                >
+                    Save
+            </button>
             <div class="column centered">
                 <div class="input-area">
                     <span>Date</span>
@@ -175,9 +191,10 @@ document.body = html`<body class="centered column">
             </div>
             <div class="column centered">
                 <div class="input-area">
-                    <span>per-capita % of money supply</span>
-                    ${percentOutputElement = html`<input style="width: 22rem; text-align: center;" disabled />`}
-                    <span style="font-size: 12; color: gray;">money / (dollars-in-circulation at the time / population of the US)</span>
+                    <span>Per-capita % of $</span>
+                    ${percentOutputElement = html`<input style="width: 15rem; text-align: center;" disabled />`}
+                    <span style="width: 15rem;font-size: 12; color: gray;">income, divided by dollars-in-circulation at the time, divided by population of the US at the time</span>
+                    <div style="min-height:1rem;" />
                     <span style="font-size: 12; color: gray;">(6 month rolling average)</span>
                 </div>
                 ${percentColumn = html`<div class="saved-column" />`}
@@ -185,21 +202,15 @@ document.body = html`<body class="centered column">
             <div class="column centered">
                 <div class="input-area">
                     <span>Your Actual Income: CPI</span>
-                    ${cpiOutputElement = html`<input style="width: 22rem; text-align: center;" disabled />`}
-                    <span style="font-size: 12; color: gray;">how much stuff could buy at the time</span>
-                    <span style="font-size: 12; color: gray;">(6 month rolling average of consumer price index: CUSR0000SA0)</span>
+                    ${cpiOutputElement = html`<input style="width: 16rem; text-align: center;" disabled />`}
+                    <span style="width: 15rem; font-size: 12; color: gray;">how much stuff could buy at the time</span>
+                    <div style="min-height:1rem;" />
+                    <span style="font-size: 12; color: gray;">(6 month rolling average)</span>
+                    <div style="min-height:1rem;" />
+                    <span style="font-size: 12; color: gray;">(specifically CUSR0000SA0)</span>
                 </div>
                 ${cpiColumn = html`<div class="saved-column" />`}
             </div>
-            <button
-                style="all: unset; background-color: cornflowerblue; color: white; border-color: white; -webkit-text-fill-color: white; padding: 0.5rem 1rem; align-self: flex-start; margin-left: 2rem; margin-top: 1.55rem; cursor: pointer;"
-                onclick=${()=>{
-                    reactiveData.savedConversions = [...reactiveData.savedConversions, [`${reactiveData.date.year}-${reactiveData.date.month}`, reactiveData.income, cpiOutputElement.value, percentOutputElement.value ]]
-                    callDataChange()
-                }}
-                >
-                    Save
-            </button>
         </div>
         <button
             style="all: unset; background-color: gray; color: white; border-color: white; -webkit-text-fill-color: white; padding: 0.5rem 1rem; margin-top: 1.55rem;"
@@ -211,12 +222,19 @@ document.body = html`<body class="centered column">
                 Clear
         </button>
     </div>
-    <a style="position: fixed; bottom: 1.5rem; min-width: 100vw; font-size: 12pt; color: cornflowerblue;" href="https://github.com/jeff-hykin/your_real_income.git">
-        Source Code (Github Link)
+    <div style="position: fixed; bottom: 1.5rem; ">
+        <a style="min-width: 100vw;" href="https://github.com/jeff-hykin/your_real_income.git">
+            Source Code (Github Link)
+        </a>
         <div><br>.</div>
-        <div>money supply: https://fred.stlouisfed.org/series/CURRCIR</div>
-        <div>CPI: https://download.bls.gov/pub/time.series/cu/cu.data.0.Current</div>
-    </a>
+        <a style="min-width: 100vw;" href="https://fred.stlouisfed.org/series/CURRCIR">
+            money supply: https://fred.stlouisfed.org/series/CURRCIR
+        </a>
+        <br>
+        <a style="min-width: 100vw;" href="https://download.bls.gov/pub/time.series/cu/cu.data.0.Current">
+            CPI: https://download.bls.gov/pub/time.series/cu/cu.data.0.Current
+        </a>
+    </div>
 
     <div style="position: fixed; right: 1rem; top: 1rem; display: flex; align-items: flex-end; justify-content: flex-end; width: max-content; max-width: 90vw; font-size: 12pt; color: gray; text-align: right;">
         Note: CPI prices after ${mostRecentYear}-${mostRecentMonth} are not available, so it will default to using ${mostRecentYear}-${mostRecentMonth} CPI for future values
